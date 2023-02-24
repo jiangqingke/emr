@@ -3,7 +3,7 @@ unit HCEmrViewLite;
 interface
 
 uses
-  Classes, SysUtils, HCViewLite, HCCustomData, HCItem;
+  Classes, SysUtils, HCViewLite, HCCustomData, HCItem, HCStyle;
 
 type
   THCImportAsTextEvent = procedure (const AText: string) of object;
@@ -12,24 +12,24 @@ type
   private
     FPropertys: TStringList;
   protected
-    /// <summary> µ±ÓĞĞÂItem´´½¨Ê±´¥·¢ </summary>
-    /// <param name="AData">´´½¨ItemµÄData</param>
-    /// <param name="AStyleNo">Òª´´½¨µÄItemÑùÊ½</param>
-    /// <returns>´´½¨ºÃµÄItem</returns>
+    /// <summary> å½“æœ‰æ–°Itemåˆ›å»ºæ—¶è§¦å‘ </summary>
+    /// <param name="AData">åˆ›å»ºItemçš„Data</param>
+    /// <param name="AStyleNo">è¦åˆ›å»ºçš„Itemæ ·å¼</param>
+    /// <returns>åˆ›å»ºå¥½çš„Item</returns>
     function DoSectionCreateStyleItem(const AData: THCCustomData;
       const AStyleNo: Integer): THCCustomItem; override;
 
-    /// <summary> ¶ÁÈ¡ÎÄµµÇ°´¥·¢ÊÂ¼ş£¬±ãÓÚÈ·ÈÏ¶©ÖÆÌØÕ÷Êı¾İ </summary>
+    /// <summary> è¯»å–æ–‡æ¡£å‰è§¦å‘äº‹ä»¶ï¼Œä¾¿äºç¡®è®¤è®¢åˆ¶ç‰¹å¾æ•°æ® </summary>
     procedure DoLoadStreamBefor(const AStream: TStream; const AFileVersion: Word); override;
-    /// <summary> ±£´æÎÄµµÇ°´¥·¢ÊÂ¼ş£¬±ãÓÚ¶©ÖÆÌØÕ÷Êı¾İ </summary>
+    /// <summary> ä¿å­˜æ–‡æ¡£å‰è§¦å‘äº‹ä»¶ï¼Œä¾¿äºè®¢åˆ¶ç‰¹å¾æ•°æ® </summary>
     procedure DoSaveStreamBefor(const AStream: TStream); override;
     procedure DoSaveMutMargin(const AStream: TStream); override;
     procedure DoLoadMutMargin(const AStream: TStream; const AStyle: THCStyle; const AFileVersion: Word); override;
   public
     constructor Create; override;
     destructor Destroy; override;
-    /// <summary> ±éÀúItem </summary>
-    /// <param name="ATraverse">±éÀúÊ±ĞÅÏ¢</param>
+    /// <summary> éå†Item </summary>
+    /// <param name="ATraverse">éå†æ—¶ä¿¡æ¯</param>
     procedure TraverseItem(const ATraverse: THCItemTraverse);
   end;
 
@@ -84,11 +84,11 @@ begin
   if vVersion > 0 then
   begin
     HCLoadTextFromStream(AStream, vS, AFileVersion);
-    if Self.Style.States.Contain(hosLoading) then  // ¼ÓÔØ²¡ÀúÊ±²Å´¦Àí£¬²åÈëÎÄ¼şÁ÷Ê±²»¸²¸Ç
+    if Self.Style.States.Contain(hosLoading) then  // åŠ è½½ç—…å†æ—¶æ‰å¤„ç†ï¼Œæ’å…¥æ–‡ä»¶æµæ—¶ä¸è¦†ç›–
       FPropertys.Text := vS;
   end
   else
-  if Self.Style.States.Contain(hosLoading) then  // ¼ÓÔØ²¡ÀúÊ±²Å´¦Àí£¬²åÈëÎÄ¼şÁ÷Ê±²»¸²¸Ç
+  if Self.Style.States.Contain(hosLoading) then  // åŠ è½½ç—…å†æ—¶æ‰å¤„ç†ï¼Œæ’å…¥æ–‡ä»¶æµæ—¶ä¸è¦†ç›–
     FPropertys.Clear;
 
   inherited DoLoadStreamBefor(AStream, AFileVersion);
