@@ -1,10 +1,10 @@
 {*******************************************************}
 {                                                       }
-{         »ùÓÚHCViewµÄµç×Ó²¡Àú³ÌĞò  ×÷Õß£º¾£Í¨          }
+{         åŸºäºHCViewçš„ç”µå­ç—…å†ç¨‹åº  ä½œè€…ï¼šè†é€š          }
 {                                                       }
-{ ´Ë´úÂë½ö×öÑ§Ï°½»Á÷Ê¹ÓÃ£¬²»¿ÉÓÃÓÚÉÌÒµÄ¿µÄ£¬ÓÉ´ËÒı·¢µÄ  }
-{ ºó¹ûÇëÊ¹ÓÃÕß³Ğµ££¬¼ÓÈëQQÈº 649023932 À´»ñÈ¡¸ü¶àµÄ¼¼Êõ }
-{ ½»Á÷¡£                                                }
+{ æ­¤ä»£ç ä»…åšå­¦ä¹ äº¤æµä½¿ç”¨ï¼Œä¸å¯ç”¨äºå•†ä¸šç›®çš„ï¼Œç”±æ­¤å¼•å‘çš„  }
+{ åæœè¯·ä½¿ç”¨è€…æ‰¿æ‹…ï¼ŒåŠ å…¥QQç¾¤ 649023932 æ¥è·å–æ›´å¤šçš„æŠ€æœ¯ }
+{ äº¤æµã€‚                                                }
 {                                                       }
 {*******************************************************}
 
@@ -98,7 +98,7 @@ begin
   end;
 end;
 
-//BackColor,TextColor·Ö±ğÊÇ±³¾°ÑÕÉ«ºÍÎÄ±¾ÑÕÉ«,Èç¹ûÊÇ0ÔòÈ¡Ä¬ÈÏÖµ.
+//BackColor,TextColoråˆ†åˆ«æ˜¯èƒŒæ™¯é¢œè‰²å’Œæ–‡æœ¬é¢œè‰²,å¦‚æœæ˜¯0åˆ™å–é»˜è®¤å€¼.
 procedure AddToolTip(hwnd: DWORD; lpti: PToolInfo; IconType: Integer;
   Text, Title: PChar; BackColor, TextColor: TColor);
 var
@@ -146,7 +146,7 @@ var
         for i := 0 to vLst1.Count - 1 do
         begin
           vLst2.DelimitedText := vLst1[i];
-          if vLst2.Count = 1 then  // Ö»ÓĞÒ»¸öÒ³ÂëÖµ
+          if vLst2.Count = 1 then  // åªæœ‰ä¸€ä¸ªé¡µç å€¼
           begin
             SetLength(vPages, Length(vPages) + 1);
             vPages[Length(vPages) - 1] := StrToInt(vLst2[0]) - 1;
@@ -195,9 +195,9 @@ var
   i, vRangeStar, vRangeEnd: Integer;
 begin
   case cbbPage.ItemIndex of
-    0: FHCView.Print(cbbPrinter.Text, StrToIntDef(edtCopies.Text, 1));  // È«²¿Ò³
-    1: FHCView.Print(cbbPrinter.Text, FPageIndex, FPageIndex, StrToIntDef(edtCopies.Text, 1));  // µ±Ç°Ò³
-    2:  // ÆæÊıÒ³
+    0: FHCView.Print(cbbPrinter.Text, StrToIntDef(edtCopies.Text, 1));  // å…¨éƒ¨é¡µ
+    1: FHCView.Print(cbbPrinter.Text, FPageIndex, FPageIndex, StrToIntDef(edtCopies.Text, 1));  // å½“å‰é¡µ
+    2:  // å¥‡æ•°é¡µ
       begin
         if edtPrintPageNos.Text <> '' then
           GetPageRange(vRangeStar, vRangeEnd)
@@ -209,17 +209,17 @@ begin
 
         for i := vRangeStar to vRangeEnd do
         begin
-          if not Odd(i) then  // Å¼ÊıĞòºÅÊÇÆæÊıÒ³
+          if not Odd(i) then  // å¶æ•°åºå·æ˜¯å¥‡æ•°é¡µ
           begin
             SetLength(vPages, Length(vPages) + 1);
             vPages[Length(vPages) - 1] := i;
           end;
         end;
 
-        FHCView.Print(cbbPrinter.Text, StrToIntDef(edtCopies.Text, 1), vPages);  // ÆæÊıÒ³
+        FHCView.Print(cbbPrinter.Text, StrToIntDef(edtCopies.Text, 1), vPages);  // å¥‡æ•°é¡µ
       end;
 
-    3:  // Å¼ÊıÒ³
+    3:  // å¶æ•°é¡µ
       begin
         if edtPrintPageNos.Text <> '' then
           GetPageRange(vRangeStar, vRangeEnd)
@@ -231,19 +231,19 @@ begin
 
         for i := vRangeStar to vRangeEnd do
         begin
-          if Odd(i) then  // ÆæÊıĞòºÅÊÇÅ¼ÊıÒ³
+          if Odd(i) then  // å¥‡æ•°åºå·æ˜¯å¶æ•°é¡µ
           begin
             SetLength(vPages, Length(vPages) + 1);
             vPages[Length(vPages) - 1] := i;
           end;
         end;
 
-        FHCView.Print(cbbPrinter.Text, StrToIntDef(edtCopies.Text, 1), vPages);  // Å¼ÊıÒ³
+        FHCView.Print(cbbPrinter.Text, StrToIntDef(edtCopies.Text, 1), vPages);  // å¶æ•°é¡µ
       end;
     4:
       begin
         GetPages;
-        FHCView.Print(cbbPrinter.Text, StrToIntDef(edtCopies.Text, 1), vPages);  // ×Ô¶¨ÒåÒ³
+        FHCView.Print(cbbPrinter.Text, StrToIntDef(edtCopies.Text, 1), vPages);  // è‡ªå®šä¹‰é¡µ
       end;
   end;
 end;
@@ -252,26 +252,26 @@ procedure TfrmPrintView.cbbPageChange(Sender: TObject);
 begin
   edtPrintPageNos.Visible := False;
 
-  if cbbPage.ItemIndex in [2, 3] then  // 2ÆæÊıÒ³ 3Å¼ÊıÒ³
+  if cbbPage.ItemIndex in [2, 3] then  // 2å¥‡æ•°é¡µ 3å¶æ•°é¡µ
   begin
     edtPrintPageNos.Clear;
     edtPrintPageNos.Visible := True;
 
     if cbbPage.ItemIndex = 2 then
-      FToolInfo.lpszText := 'ÉèÖÃ´òÓ¡Ö¸¶¨·¶Î§ÄÚµÄÆæÊıÒ³£¬Èç 3-10 ´òÓ¡µÚ3¡¢5¡¢7¡¢9Ò³' + #13 + '¿Õ±íÊ¾²»ÏŞÖÆ·¶Î§'
+      FToolInfo.lpszText := 'è®¾ç½®æ‰“å°æŒ‡å®šèŒƒå›´å†…çš„å¥‡æ•°é¡µï¼Œå¦‚ 3-10 æ‰“å°ç¬¬3ã€5ã€7ã€9é¡µ' + #13 + 'ç©ºè¡¨ç¤ºä¸é™åˆ¶èŒƒå›´'
     else
-      FToolInfo.lpszText := 'ÉèÖÃ´òÓ¡Ö¸¶¨·¶Î§ÄÚµÄÅ¼ÊıÊıÒ³£¬Èç 2-7 ´òÓ¡µÚ2¡¢4¡¢6Ò³' + #13 + '¿Õ±íÊ¾²»ÏŞÖÆ·¶Î§';
+      FToolInfo.lpszText := 'è®¾ç½®æ‰“å°æŒ‡å®šèŒƒå›´å†…çš„å¶æ•°æ•°é¡µï¼Œå¦‚ 2-7 æ‰“å°ç¬¬2ã€4ã€6é¡µ' + #13 + 'ç©ºè¡¨ç¤ºä¸é™åˆ¶èŒƒå›´';
 
     SendMessage(FTooltipHandle, TTM_SETTOOLINFO, 0, Integer(@FToolInfo));
   end
   else
-  if cbbPage.ItemIndex = cbbPage.Items.Count - 1 then // ×îºóÒ»¸öÊÇ×Ô¶¨ÒåÒ³Âë
+  if cbbPage.ItemIndex = cbbPage.Items.Count - 1 then // æœ€åä¸€ä¸ªæ˜¯è‡ªå®šä¹‰é¡µç 
   begin
     edtPrintPageNos.Clear;
     edtPrintPageNos.Visible := True;
 
-    FToolInfo.lpszText := 'µ¥Ò³ÒÔÓ¢ÎÄ¶ººÅ¡°,¡±·Ö¸ôÈç£º1,4,6,8' + #13 +
-      'Á¬ĞøÒ³ÒÔÓ¢ÎÄ¡°-¡±·Ö¸ôÈç£º2-5' + #13 + 'ÒÔÉÏ¿ÉÍ¬Ê±Ê¹ÓÃÈç£º1,3,5-7,9';
+    FToolInfo.lpszText := 'å•é¡µä»¥è‹±æ–‡é€—å·â€œ,â€åˆ†éš”å¦‚ï¼š1,4,6,8' + #13 +
+      'è¿ç»­é¡µä»¥è‹±æ–‡â€œ-â€åˆ†éš”å¦‚ï¼š2-5' + #13 + 'ä»¥ä¸Šå¯åŒæ—¶ä½¿ç”¨å¦‚ï¼š1,3,5-7,9';
 
     SendMessage(FTooltipHandle, TTM_SETTOOLINFO, 0, Integer(@FToolInfo));
   end;
@@ -380,9 +380,9 @@ begin
   cbbPrinter.ItemIndex := Printer.PrinterIndex;
 
   CreateToolTips(edtPrintPageNos.Handle);
-  AddToolTip(edtPrintPageNos.Handle, @FToolInfo, 1, 'µ¥Ò³ÒÔÓ¢ÎÄ¶ººÅ¡°,¡±·Ö¸ôÈç£º1,4,6,8' + #13 +
-    'Á¬ĞøÒ³ÒÔÓ¢ÎÄ¡°-¡±·Ö¸ôÈç£º2-5' + #13 +
-    'ÒÔÉÏ¿ÉÍ¬Ê±Ê¹ÓÃÈç£º1,3,5-7,9', 'ÌáÊ¾', 0, 0);  //Êı×Ö1¿ÉÒÔ¸ÄÎªÆäËüµÄÊı×ÖÀ´ÏÔÊ¾²»Í¬µÄÍ¼±ê
+  AddToolTip(edtPrintPageNos.Handle, @FToolInfo, 1, 'å•é¡µä»¥è‹±æ–‡é€—å·â€œ,â€åˆ†éš”å¦‚ï¼š1,4,6,8' + #13 +
+    'è¿ç»­é¡µä»¥è‹±æ–‡â€œ-â€åˆ†éš”å¦‚ï¼š2-5' + #13 +
+    'ä»¥ä¸Šå¯åŒæ—¶ä½¿ç”¨å¦‚ï¼š1,3,5-7,9', 'æç¤º', 0, 0);  //æ•°å­—1å¯ä»¥æ”¹ä¸ºå…¶å®ƒçš„æ•°å­—æ¥æ˜¾ç¤ºä¸åŒçš„å›¾æ ‡
 end;
 
 procedure TfrmPrintView.pbPageMouseDown(Sender: TObject; Button: TMouseButton;
@@ -470,12 +470,12 @@ var
   vCopies: Integer;
 begin
   vCopies := StrToIntDef(edtCopies.Text, 1);
-  if Button = TUDBtnType.btNext then  // ÉÏ£¬Ôö¼Ó
+  if Button = TUDBtnType.btNext then  // ä¸Šï¼Œå¢åŠ 
   begin
     Inc(vCopies);
     edtCopies.Text := IntToStr(vCopies);
   end
-  else  // ÏòÏÂ£¬¼õÉÙ
+  else  // å‘ä¸‹ï¼Œå‡å°‘
   begin
     if vCopies > 1 then
     begin
@@ -493,7 +493,7 @@ var
   vZoom: Single;
 begin
   vZoom := StrToIntDef(cbbZoom.Text, 100) / 100;
-  // ¸ù¾İÒ³Âë»ñÈ¡ÆğÊ¼½ÚºÍ½áÊø½Ú
+  // æ ¹æ®é¡µç è·å–èµ·å§‹èŠ‚å’Œç»“æŸèŠ‚
   vSection := FHCView.GetSectionPageIndexByPageIndex(FPageIndex, vSectionPageIndex);
 
   vPaintInfo := TSectionPaintInfo.Create;
@@ -507,18 +507,18 @@ begin
     FDrawTop := Max((pbPage.Height - FDrawHeight) div 2, 0);
     FDrawLeft := Max((pbPage.Width - FDrawWidth) div 2, 0);
 
-    //vBL := FHCView.Sections[vSection].PageHeightPix / FHCView.Sections[vSection].PaperWidthPix;  // ×İºá±È
+    //vBL := FHCView.Sections[vSection].PageHeightPix / FHCView.Sections[vSection].PaperWidthPix;  // çºµæ¨ªæ¯”
 
     vPaintInfo.WindowWidth := FDrawWidth;
     vPaintInfo.WindowHeight := FDrawHeight;
 
-    if FHCView.Sections[vSection].Page.DataAnnotates.Count > 0 then
-    begin
-      vPaintInfo.Zoom := vZoom * FHCView.Sections[vSection].PaperWidthPix / (FHCView.Sections[vSection].PaperWidthPix + AnnotationWidth);
-      vPaintInfo.ScaleX := vPaintInfo.Zoom;
-      vPaintInfo.ScaleY := vPaintInfo.Zoom;
-    end
-    else
+    //if FHCView.Sections[vSection].Page.DataAnnotates.Count > 0 then
+    //begin
+    //  vPaintInfo.Zoom := vZoom * FHCView.Sections[vSection].PaperWidthPix / (FHCView.Sections[vSection].PaperWidthPix + AnnotationWidth);
+    //  vPaintInfo.ScaleX := vPaintInfo.Zoom;
+    //  vPaintInfo.ScaleY := vPaintInfo.Zoom;
+    //end
+    //else
     begin
       vPaintInfo.ScaleX := vZoom;
       vPaintInfo.ScaleY := vZoom;
@@ -536,7 +536,7 @@ begin
       FHCView.Sections[vSection].PaintPaper(vSectionPageIndex, 0, 0,
         FBitmap.Canvas, vPaintInfo);
 
-      {for i := 0 to vPaintInfo.TopItems.Count - 1 do  // »æÖÆ¶¥²ãItem
+      {for i := 0 to vPaintInfo.TopItems.Count - 1 do  // ç»˜åˆ¶é¡¶å±‚Item
         vPaintInfo.TopItems[i].PaintTop(FBitmap.Canvas, vPaintInfo);}
     finally
       vPaintInfo.RestoreCanvasScale(FBitmap.Canvas, vScaleInfo);
